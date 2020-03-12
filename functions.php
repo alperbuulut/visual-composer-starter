@@ -918,16 +918,17 @@ if ( ! function_exists( 'visualcomposerstarter_get_sidebar_class' ) ) {
 	 * @return bool|string
 	 */
 	function visualcomposerstarter_get_sidebar_class() {
-		switch ( visualcomposerstarter_specify_sidebar() ) {
-			case 'none':
-				return false;
-			case 'left':
-				return 'col-md-3 col-md-pull-9';
-			case 'right':
-				return 'col-md-3';
-			default:
-				return false;
+		$class = '';
+		if ( visualcomposerstarter_specify_sidebar() === 'left' ) {
+			$class .= 'col-md-3 col-md-pull-9 ';
+			$class = apply_filters('visualcomposerstarter-custom-sidebar-class', $class);
+			return $class;
+		} else if ( visualcomposerstarter_specify_sidebar() === 'right' ) {
+			$class .= 'col-md-3 ';
+			$class = apply_filters('visualcomposerstarter-custom-sidebar-class', $class);
+			return $class;
 		}
+		return false;
 	}
 }
 
